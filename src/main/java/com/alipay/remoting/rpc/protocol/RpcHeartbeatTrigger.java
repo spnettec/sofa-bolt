@@ -28,7 +28,6 @@ import com.alipay.remoting.InvokeFuture;
 import com.alipay.remoting.ResponseStatus;
 import com.alipay.remoting.TimerHolder;
 import com.alipay.remoting.config.ConfigManager;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.DefaultInvokeFuture;
 import com.alipay.remoting.rpc.HeartbeatCommand;
 import com.alipay.remoting.rpc.ResponseCommand;
@@ -39,6 +38,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.Timeout;
 import io.netty.util.TimerTask;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handler for heart beat.
@@ -47,7 +47,7 @@ import io.netty.util.TimerTask;
  * @version $Id: RpcHeartbeatTrigger.java, v 0.1 2015-9-29 PM3:17:45 tao Exp $
  */
 public class RpcHeartbeatTrigger implements HeartbeatTrigger {
-    private static final Logger logger                 = BoltLoggerFactory.getLogger("RpcRemoting");
+    private static final Logger logger                 = LoggerFactory.getLogger("RpcRemoting");
 
     /** max trigger times */
     public static final Integer maxCount               = ConfigManager.tcp_idle_maxtimes();

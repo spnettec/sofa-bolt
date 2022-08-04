@@ -30,7 +30,6 @@ import com.alipay.remoting.RemotingContext;
 import com.alipay.remoting.ResponseStatus;
 import com.alipay.remoting.exception.DeserializationException;
 import com.alipay.remoting.exception.SerializationException;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.RpcCommandType;
 import com.alipay.remoting.util.RemotingUtil;
 
@@ -38,6 +37,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
+import org.slf4j.LoggerFactory;
 
 /**
  * Process Rpc request.
@@ -47,7 +47,7 @@ import io.netty.channel.ChannelHandlerContext;
  */
 public class RpcRequestProcessor extends AbstractRemotingProcessor<RpcRequestCommand> {
     /** logger */
-    private static final Logger logger = BoltLoggerFactory.getLogger("RpcRemoting");
+    private static final Logger logger = LoggerFactory.getLogger("RpcRemoting");
 
     /**
      * Default constructor.

@@ -19,9 +19,8 @@ package com.alipay.remoting;
 import java.util.concurrent.ExecutorService;
 
 import org.slf4j.Logger;
-
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.RemotingUtil;
+import org.slf4j.LoggerFactory;
 
 /**
  * Processor to process remoting command.
@@ -32,7 +31,7 @@ import com.alipay.remoting.util.RemotingUtil;
  */
 public abstract class AbstractRemotingProcessor<T extends RemotingCommand> implements
                                                                            RemotingProcessor<T> {
-    private static final Logger logger = BoltLoggerFactory.getLogger("CommonDefault");
+    private static final Logger logger = LoggerFactory.getLogger("CommonDefault");
     private ExecutorService     executor;
     private CommandFactory      commandFactory;
 

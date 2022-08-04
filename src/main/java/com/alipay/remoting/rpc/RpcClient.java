@@ -45,9 +45,9 @@ import com.alipay.remoting.RemotingAddressParser;
 import com.alipay.remoting.ScheduledDisconnectStrategy;
 import com.alipay.remoting.Url;
 import com.alipay.remoting.exception.RemotingException;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.protocol.UserProcessor;
 import com.alipay.remoting.rpc.protocol.UserProcessorRegisterHelper;
+import org.slf4j.LoggerFactory;
 
 /**
  * Client for Rpc.
@@ -57,7 +57,7 @@ import com.alipay.remoting.rpc.protocol.UserProcessorRegisterHelper;
  */
 public class RpcClient extends AbstractBoltClient {
 
-    private static final Logger                               logger = BoltLoggerFactory
+    private static final Logger                               logger = LoggerFactory
                                                                          .getLogger("RpcRemoting");
 
     private final RpcTaskScanner                              taskScanner;

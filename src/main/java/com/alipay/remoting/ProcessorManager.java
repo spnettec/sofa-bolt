@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 
 import com.alipay.remoting.config.ConfigManager;
-import com.alipay.remoting.log.BoltLoggerFactory;
+import org.slf4j.LoggerFactory;
 
 /**
  * Manager of processors<br>
@@ -35,7 +35,7 @@ import com.alipay.remoting.log.BoltLoggerFactory;
  * @version $Id: ProcessorManager.java, v 0.1 Sept 6, 2015 2:49:47 PM tao Exp $
  */
 public class ProcessorManager {
-    private static final Logger                                  logger         = BoltLoggerFactory
+    private static final Logger                                  logger         = LoggerFactory
                                                                                     .getLogger("CommonDefault");
     private ConcurrentHashMap<CommandCode, RemotingProcessor<?>> cmd2processors = new ConcurrentHashMap<CommandCode, RemotingProcessor<?>>(
                                                                                     4);

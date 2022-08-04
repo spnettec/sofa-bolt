@@ -27,8 +27,7 @@ import com.alipay.remoting.config.configs.ConfigContainer;
 import com.alipay.remoting.config.configs.DefaultConfigContainer;
 import com.alipay.remoting.config.switches.GlobalSwitch;
 import org.slf4j.Logger;
-
-import com.alipay.remoting.log.BoltLoggerFactory;
+import org.slf4j.LoggerFactory;
 
 /**
  * Server template for remoting.
@@ -39,7 +38,7 @@ import com.alipay.remoting.log.BoltLoggerFactory;
 public abstract class AbstractRemotingServer extends AbstractLifeCycle implements RemotingServer,
                                                                       ConfigurableInstance {
 
-    private static final Logger   logger = BoltLoggerFactory.getLogger("CommonDefault");
+    private static final Logger   logger = LoggerFactory.getLogger("CommonDefault");
 
     private String                ip;
     private int                   port;

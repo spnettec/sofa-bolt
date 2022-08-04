@@ -21,13 +21,13 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 
 import com.alipay.remoting.exception.RemotingException;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.RemotingUtil;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.util.Timeout;
 import io.netty.util.TimerTask;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base remoting capability.
@@ -37,7 +37,7 @@ import io.netty.util.TimerTask;
  */
 public abstract class BaseRemoting {
 
-    private final static Logger LOGGER                       = BoltLoggerFactory
+    private final static Logger LOGGER                       = LoggerFactory
                                                                  .getLogger("CommonDefault");
     private final static long   ABANDONING_REQUEST_THRESHOLD = 0L;
 

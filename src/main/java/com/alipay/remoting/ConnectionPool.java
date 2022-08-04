@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.slf4j.Logger;
-
-import com.alipay.remoting.log.BoltLoggerFactory;
+import org.slf4j.LoggerFactory;
 
 /**
  * Connection pool
@@ -32,7 +31,7 @@ import com.alipay.remoting.log.BoltLoggerFactory;
  */
 public class ConnectionPool implements Scannable {
 
-    private static final Logger              logger = BoltLoggerFactory.getLogger("CommonDefault");
+    private static final Logger              logger = LoggerFactory.getLogger("CommonDefault");
 
     private CopyOnWriteArrayList<Connection> connections;
     private ConnectionSelectStrategy         strategy;

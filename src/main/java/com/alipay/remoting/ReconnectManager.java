@@ -21,8 +21,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.slf4j.Logger;
-
-import com.alipay.remoting.log.BoltLoggerFactory;
+import org.slf4j.LoggerFactory;
 
 /**
  * Reconnect manager.
@@ -32,7 +31,7 @@ import com.alipay.remoting.log.BoltLoggerFactory;
  */
 public class ReconnectManager extends AbstractLifeCycle implements Reconnector {
 
-    private static final Logger                      logger                   = BoltLoggerFactory
+    private static final Logger                      logger                   = LoggerFactory
                                                                                   .getLogger("CommonDefault");
 
     private static final int                         HEAL_CONNECTION_INTERVAL = 1000;

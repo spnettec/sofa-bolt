@@ -37,7 +37,6 @@ import com.alipay.remoting.codec.Codec;
 import com.alipay.remoting.config.ConfigManager;
 import com.alipay.remoting.constant.Constants;
 import com.alipay.remoting.exception.RemotingException;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.protocol.UserProcessor;
 import com.alipay.remoting.rpc.protocol.UserProcessorRegisterHelper;
 import com.alipay.remoting.util.IoUtils;
@@ -62,6 +61,7 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.flush.FlushConsolidationHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.slf4j.LoggerFactory;
 
 /**
  * Server for Rpc.
@@ -80,7 +80,7 @@ import io.netty.handler.timeout.IdleStateHandler;
 public class RpcServer extends AbstractRemotingServer {
 
     /** logger */
-    private static final Logger                         logger                  = BoltLoggerFactory
+    private static final Logger                         logger                  = LoggerFactory
                                                                                     .getLogger("RpcRemoting");
     /** server bootstrap */
     private ServerBootstrap                             bootstrap;

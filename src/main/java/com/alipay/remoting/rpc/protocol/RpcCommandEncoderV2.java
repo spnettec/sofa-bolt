@@ -18,7 +18,6 @@ package com.alipay.remoting.rpc.protocol;
 
 import java.io.Serializable;
 
-import com.alipay.remoting.log.BoltLoggerFactory;
 import org.slf4j.Logger;
 
 import com.alipay.remoting.CommandEncoder;
@@ -32,6 +31,7 @@ import com.alipay.remoting.util.CrcUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.Attribute;
+import org.slf4j.LoggerFactory;
 
 /**
  * Encode remoting command into ByteBuf v2.
@@ -41,7 +41,7 @@ import io.netty.util.Attribute;
  */
 public class RpcCommandEncoderV2 implements CommandEncoder {
     /** logger */
-    private static final Logger logger = BoltLoggerFactory.getLogger("RpcRemoting");
+    private static final Logger logger = LoggerFactory.getLogger("RpcRemoting");
 
     /**
      * @see CommandEncoder#encode(ChannelHandlerContext, Serializable, ByteBuf)

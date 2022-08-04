@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 
 import com.alipay.remoting.NamedThreadFactory;
 import com.alipay.remoting.Scannable;
-import com.alipay.remoting.log.BoltLoggerFactory;
+import org.slf4j.LoggerFactory;
 
 /**
  * Scanner is used to do scan task.
@@ -38,7 +38,7 @@ import com.alipay.remoting.log.BoltLoggerFactory;
  */
 public class RpcTaskScanner extends AbstractLifeCycle {
 
-    private static final Logger      logger = BoltLoggerFactory.getLogger("RpcRemoting");
+    private static final Logger      logger = LoggerFactory.getLogger("RpcRemoting");
 
     private final List<Scannable>    scanList;
 

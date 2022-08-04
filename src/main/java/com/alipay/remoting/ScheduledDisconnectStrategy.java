@@ -26,10 +26,10 @@ import org.slf4j.Logger;
 
 import com.alipay.remoting.config.ConfigManager;
 import com.alipay.remoting.config.Configs;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.FutureTaskUtil;
 import com.alipay.remoting.util.RemotingUtil;
 import com.alipay.remoting.util.RunStateRecordedFutureTask;
+import org.slf4j.LoggerFactory;
 
 /**
  * An implemented strategy to monitor connections:
@@ -42,7 +42,7 @@ import com.alipay.remoting.util.RunStateRecordedFutureTask;
  * @version $Id: ScheduledDisconnectStrategy.java, v 0.1 2017-02-21 14:14 tsui Exp $
  */
 public class ScheduledDisconnectStrategy implements ConnectionMonitorStrategy {
-    private static final Logger logger = BoltLoggerFactory.getLogger("CommonDefault");
+    private static final Logger logger = LoggerFactory.getLogger("CommonDefault");
 
     private final int           connectionThreshold;
     private final Random        random;

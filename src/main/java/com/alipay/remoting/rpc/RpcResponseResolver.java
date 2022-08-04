@@ -24,7 +24,6 @@ import com.alipay.remoting.exception.ConnectionClosedException;
 import com.alipay.remoting.exception.DeserializationException;
 import com.alipay.remoting.exception.RemotingException;
 import com.alipay.remoting.exception.SerializationException;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.exception.InvokeException;
 import com.alipay.remoting.rpc.exception.InvokeSendFailedException;
 import com.alipay.remoting.rpc.exception.InvokeServerBusyException;
@@ -32,6 +31,7 @@ import com.alipay.remoting.rpc.exception.InvokeServerException;
 import com.alipay.remoting.rpc.exception.InvokeTimeoutException;
 import com.alipay.remoting.rpc.protocol.RpcResponseCommand;
 import com.alipay.remoting.util.StringUtils;
+import org.slf4j.LoggerFactory;
 
 /**
  * Resolve response object from response command.
@@ -40,7 +40,7 @@ import com.alipay.remoting.util.StringUtils;
  * @version $Id: RpcResponseResolver.java, v 0.1 2015-10-8 PM2:47:29 tao Exp $
  */
 public class RpcResponseResolver {
-    private static final Logger logger = BoltLoggerFactory.getLogger("RpcRemoting");
+    private static final Logger logger = LoggerFactory.getLogger("RpcRemoting");
 
     /**
      * Analyze the response command and generate the response object.
