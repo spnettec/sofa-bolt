@@ -92,16 +92,17 @@ public class ScheduledDisconnectStrategy implements ConnectionMonitorStrategy {
                 String poolKey = entry.getKey();
                 ConnectionPool pool = FutureTaskUtil.getFutureTaskResult(entry.getValue(), logger);
 
-                List<Connection> serviceOnConnections = new ArrayList<Connection>();
-                List<Connection> serviceOffConnections = new ArrayList<Connection>();
-                for (Connection connection : pool.getAll()) {
-                    if (isConnectionOn(connection)) {
-                        serviceOnConnections.add(connection);
-                    } else {
-                        serviceOffConnections.add(connection);
+                List<Connection> serviceOnConnections = new ArrayList<>();
+                List<Connection> serviceOffConnections = new ArrayList<>();
+                if(pool!=null) {
+                    for (Connection connection : pool.getAll()) {
+                        if (isConnectionOn(connection)) {
+                            serviceOnConnections.add(connection);
+                        } else {
+                            serviceOffConnections.add(connection);
+                        }
                     }
                 }
-
                 if (serviceOnConnections.size() > connectionThreshold) {
                     Connection freshSelectConnect = serviceOnConnections.get(random
                         .nextInt(serviceOnConnections.size()));

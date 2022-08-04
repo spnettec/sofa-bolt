@@ -16,30 +16,32 @@
  */
 package com.alipay.remoting.codec;
 
-import java.io.Serializable;
-
 import com.alipay.remoting.Connection;
 import com.alipay.remoting.Protocol;
 import com.alipay.remoting.ProtocolCode;
 import com.alipay.remoting.ProtocolManager;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.util.Attribute;
 
+import java.io.Serializable;
+
 /**
  * Protocol code based newEncoder, the main newEncoder for a certain protocol, which is lead by one or multi bytes (magic code).
- *
+ * <p>
  * Notice: this is stateless can be noted as {@link io.netty.channel.ChannelHandler.Sharable}
+ *
  * @author jiangping
  * @version $Id: ProtocolCodeBasedEncoder.java, v 0.1 2015-12-11 PM 7:30:30 tao Exp $
  */
 @ChannelHandler.Sharable
 public class ProtocolCodeBasedEncoder extends MessageToByteEncoder<Serializable> {
 
-    /** default protocol code */
+    /**
+     * default protocol code
+     */
     protected ProtocolCode defaultProtocolCode;
 
     public ProtocolCodeBasedEncoder(ProtocolCode defaultProtocolCode) {
@@ -58,6 +60,9 @@ public class ProtocolCodeBasedEncoder extends MessageToByteEncoder<Serializable>
             protocolCode = att.get();
         }
         Protocol protocol = ProtocolManager.getProtocol(protocolCode);
+        if (protocol == null) {
+            throw new RuntimeException("protocolCode:" + protocolCode + "is not exist");
+        }
         protocol.getEncoder().encode(ctx, msg, out);
     }
 
