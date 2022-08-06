@@ -21,7 +21,6 @@ import com.alipay.sofa.common.log.env.LogEnvUtils;
 import com.alipay.sofa.common.log.factory.AbstractLoggerSpaceFactory;
 import com.alipay.sofa.common.log.factory.LoggerSpaceFactory4CommonsLoggingBuilder;
 import com.alipay.sofa.common.log.factory.LoggerSpaceFactory4Log4j2Builder;
-import com.alipay.sofa.common.log.factory.LoggerSpaceFactory4Log4jBuilder;
 import com.alipay.sofa.common.log.factory.LoggerSpaceFactory4LogbackBuilder;
 import com.alipay.sofa.common.log.factory.LoggerSpaceFactoryBuilder;
 import com.alipay.sofa.common.log.proxy.TemporaryILoggerFactoryPool;
@@ -285,22 +284,6 @@ public class MultiAppLoggerSpaceManager {
                         spaceClassloader);
                 }
             }
-
-            if (LOG4J_MIDDLEWARE_LOG_DISABLE) {
-                ReportUtil.reportWarn("Log4j-Sofa-Middleware-Log is disabled!  -D"
-                                      + LOG4J_MIDDLEWARE_LOG_DISABLE_PROP_KEY + "=true");
-            } else {
-                if (LogEnvUtils.isLog4jUsable(spaceClassloader)) {
-                    ReportUtil.reportDebug("Actual binding is of type [ " + spaceId.toString()
-                                           + " Log4j ]");
-                    LoggerSpaceFactoryBuilder loggerSpaceFactory4Log4jBuilder = new LoggerSpaceFactory4Log4jBuilder(
-                        spaceId, logSpace);
-
-                    return loggerSpaceFactory4Log4jBuilder.build(spaceId.getSpaceName(),
-                        spaceClassloader);
-                }
-            }
-
             // DO not delete this, this is used in multi-classloader scenario for compatibility of commons-logging
             if (LOG4J_COMMONS_LOGGING_MIDDLEWARE_LOG_DISABLE) {
                 ReportUtil.reportWarn("Log4j-Sofa-Middleware-Log(commons-logging) is disabled!  -D"
