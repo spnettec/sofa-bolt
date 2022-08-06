@@ -68,7 +68,7 @@
         <commons.logging.version>1.2</commons.logging.version>
         <coveralls.maven.plugin>4.3.0</coveralls.maven.plugin>
         <disruptor.verion>3.4.4</disruptor.verion>
-        <hessian.version>4.0.4</hessian.version>
+        <hessian.version>4.0.66</hessian.version>
         <java.version>1.8</java.version>
         <junit.version>4.13.2</junit.version>
         <license.maven.plugin>4.1</license.maven.plugin>
@@ -102,7 +102,7 @@
 
         <!-- provided scope -->
         <dependency>
-            <groupId>com.alipay.sofa</groupId>
+            <groupId>com.caucho</groupId>
             <artifactId>hessian</artifactId>
             <version>${hessian.version}</version>
             <scope>provided</scope>
