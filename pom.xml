@@ -161,8 +161,8 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j13</artifactId>
-            <version>1.0.1</version>
+            <artifactId>slf4j-reload4j</artifactId>
+            <version>${slf4j.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
