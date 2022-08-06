@@ -16,6 +16,8 @@
  */
 package com.alipay.remoting.util;
 
+import com.alipay.sofa.common.log.ArrayUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,11 @@ public class StringUtils {
 
     public static boolean isNotEmpty(CharSequence cs) {
         return !StringUtils.isEmpty(cs);
+    }
+
+    public static String toString(Object object, String nullStr) {
+        return object == null ? nullStr : (object.getClass().isArray() ? ArrayUtil.toString(object)
+            : object.toString());
     }
 
     public static boolean isBlank(CharSequence cs) {
@@ -113,6 +120,90 @@ public class StringUtils {
 
             return true;
         }
+    }
+
+    public static String trimToEmpty(String str) {
+        return trimToEmpty(str, (String) null);
+    }
+
+    public static String trim(String str) {
+        return trim(str, (String) null, 0);
+    }
+
+    public static String trim(String str, String stripChars) {
+        return trim(str, stripChars, 0);
+    }
+
+    public static String trimStart(String str) {
+        return trim(str, (String) null, -1);
+    }
+
+    public static String trimStart(String str, String stripChars) {
+        return trim(str, stripChars, -1);
+    }
+
+    public static String trimEnd(String str) {
+        return trim(str, (String) null, 1);
+    }
+
+    public static String trimEnd(String str, String stripChars) {
+        return trim(str, stripChars, 1);
+    }
+
+    private static String trim(String str, String stripChars, int mode) {
+        if (str == null) {
+            return null;
+        } else {
+            int length = str.length();
+            int start = 0;
+            int end = length;
+            if (mode <= 0) {
+                if (stripChars == null) {
+                    while (start < end && Character.isWhitespace(str.charAt(start))) {
+                        ++start;
+                    }
+                } else {
+                    if (stripChars.length() == 0) {
+                        return str;
+                    }
+
+                    while (start < end && stripChars.indexOf(str.charAt(start)) != -1) {
+                        ++start;
+                    }
+                }
+            }
+
+            if (mode >= 0) {
+                if (stripChars == null) {
+                    while (start < end && Character.isWhitespace(str.charAt(end - 1))) {
+                        --end;
+                    }
+                } else {
+                    if (stripChars.length() == 0) {
+                        return str;
+                    }
+
+                    while (start < end && stripChars.indexOf(str.charAt(end - 1)) != -1) {
+                        --end;
+                    }
+                }
+            }
+
+            return start <= 0 && end >= length ? str : str.substring(start, end);
+        }
+    }
+
+    public static boolean contains(String str, char searchChar) {
+        return str != null && str.length() != 0 ? str.indexOf(searchChar) >= 0 : false;
+    }
+
+    public static boolean contains(String str, String searchStr) {
+        return str != null && searchStr != null ? str.indexOf(searchStr) >= 0 : false;
+    }
+
+    public static String trimToEmpty(String str, String stripChars) {
+        String result = trim(str, stripChars);
+        return result == null ? "" : result;
     }
 
     public static boolean equals(String str1, String str2) {

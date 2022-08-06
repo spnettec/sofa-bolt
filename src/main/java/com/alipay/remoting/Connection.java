@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 
+import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.protocol.RpcProtocolV2;
 import com.alipay.remoting.util.ConcurrentHashSet;
 import com.alipay.remoting.util.RemotingUtil;
@@ -35,7 +36,6 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.util.AttributeKey;
-import org.slf4j.LoggerFactory;
 
 /**
  * An abstraction of socket channel.
@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Connection {
 
-    private static final Logger                                                   logger           = LoggerFactory
+    private static final Logger                                                   logger           = BoltLoggerFactory
                                                                                                        .getLogger("CommonDefault");
 
     private Channel                                                               channel;

@@ -20,7 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.alipay.remoting.log.BoltLoggerFactory;
 
 /**
  * default implementation for config container
@@ -31,7 +32,7 @@ import org.slf4j.LoggerFactory;
 @Deprecated
 public class DefaultConfigContainer implements ConfigContainer {
     /** logger */
-    private static final Logger                      logger      = LoggerFactory
+    private static final Logger                      logger      = BoltLoggerFactory
                                                                      .getLogger("CommonDefault");
 
     /**

@@ -25,8 +25,8 @@ import com.alipay.remoting.Connection;
 import com.alipay.remoting.InvokeFuture;
 import com.alipay.remoting.RemotingCommand;
 import com.alipay.remoting.RemotingContext;
+import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.RemotingUtil;
-import org.slf4j.LoggerFactory;
 
 /**
  * Processor to process RpcResponse.
@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RpcResponseProcessor extends AbstractRemotingProcessor<RemotingCommand> {
 
-    private static final Logger logger = LoggerFactory.getLogger("RpcRemoting");
+    private static final Logger logger = BoltLoggerFactory.getLogger("RpcRemoting");
 
     /**
      * Default constructor.

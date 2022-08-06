@@ -34,9 +34,9 @@ import com.alipay.remoting.Protocol;
 import com.alipay.remoting.ProtocolCode;
 import com.alipay.remoting.ProtocolManager;
 import com.alipay.remoting.RemotingCommand;
+import com.alipay.remoting.log.BoltLoggerFactory;
 
 import io.netty.util.Timeout;
-import org.slf4j.LoggerFactory;
 
 /**
  * The default implementation of InvokeFuture.
@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DefaultInvokeFuture implements InvokeFuture {
 
-    private static final Logger      logger                  = LoggerFactory
+    private static final Logger      logger                  = BoltLoggerFactory
                                                                  .getLogger("RpcRemoting");
 
     private int                      invokeId;

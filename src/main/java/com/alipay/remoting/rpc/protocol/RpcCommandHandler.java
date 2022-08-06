@@ -32,6 +32,7 @@ import com.alipay.remoting.RemotingCommand;
 import com.alipay.remoting.RemotingContext;
 import com.alipay.remoting.RemotingProcessor;
 import com.alipay.remoting.ResponseStatus;
+import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.RequestCommand;
 import com.alipay.remoting.rpc.ResponseCommand;
 import com.alipay.remoting.rpc.RpcCommand;
@@ -41,7 +42,6 @@ import com.alipay.remoting.rpc.RpcConfigManager;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
-import org.slf4j.LoggerFactory;
 
 /**
  * Rpc command handler.
@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 @Sharable
 public class RpcCommandHandler implements CommandHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger("RpcRemoting");
+    private static final Logger logger = BoltLoggerFactory.getLogger("RpcRemoting");
     /** All processors */
     ProcessorManager            processorManager;
 

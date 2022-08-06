@@ -23,13 +23,13 @@ import com.alipay.remoting.Connection;
 import com.alipay.remoting.InvokeFuture;
 import com.alipay.remoting.RemotingCommand;
 import com.alipay.remoting.RemotingContext;
+import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.HeartbeatAckCommand;
 import com.alipay.remoting.rpc.HeartbeatCommand;
 import com.alipay.remoting.util.RemotingUtil;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
-import org.slf4j.LoggerFactory;
 
 /**
  * Processor for heart beat.
@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: RpcHeartBeatProcessor.java, v 0.1 2018-03-29 11:02 tsui Exp $
  */
 public class RpcHeartBeatProcessor extends AbstractRemotingProcessor {
-    private static final Logger logger = LoggerFactory.getLogger("RpcRemoting");
+    private static final Logger logger = BoltLoggerFactory.getLogger("RpcRemoting");
 
     @Override
     public void doProcess(final RemotingContext ctx, RemotingCommand msg) {

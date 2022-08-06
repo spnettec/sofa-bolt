@@ -43,6 +43,7 @@ import com.alipay.remoting.Url;
 import com.alipay.remoting.codec.Codec;
 import com.alipay.remoting.config.ConfigManager;
 import com.alipay.remoting.constant.Constants;
+import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.RpcConfigManager;
 import com.alipay.remoting.rpc.protocol.RpcProtocol;
 import com.alipay.remoting.rpc.protocol.RpcProtocolV2;
@@ -66,7 +67,6 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.flush.FlushConsolidationHandler;
 import io.netty.handler.timeout.IdleStateHandler;
-import org.slf4j.LoggerFactory;
 
 /**
  * ConnectionFactory to create connection.
@@ -75,7 +75,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractConnectionFactory implements ConnectionFactory {
 
-    private static final Logger         logger      = LoggerFactory
+    private static final Logger         logger      = BoltLoggerFactory
                                                         .getLogger(AbstractConnectionFactory.class);
 
     private static final EventLoopGroup workerGroup = NettyEventLoopUtil.newEventLoopGroup(Runtime

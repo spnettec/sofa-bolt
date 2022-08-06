@@ -24,8 +24,8 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 
 import com.alipay.remoting.config.ConfigManager;
+import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.RunStateRecordedFutureTask;
-import org.slf4j.LoggerFactory;
 
 /**
  *  A default connection monitor that handle connections with strategies
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DefaultConnectionMonitor extends AbstractLifeCycle {
 
-    private static final Logger             logger = LoggerFactory.getLogger("CommonDefault");
+    private static final Logger             logger = BoltLoggerFactory.getLogger("CommonDefault");
 
     private final ConnectionManager         connectionManager;
     private final ConnectionMonitorStrategy strategy;

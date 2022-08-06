@@ -32,10 +32,10 @@ import com.alipay.remoting.config.switches.ProtocolSwitch;
 import com.alipay.remoting.exception.CodecException;
 import com.alipay.remoting.exception.RemotingException;
 import com.alipay.remoting.exception.SerializationException;
+import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.rpc.protocol.RpcProtocolManager;
 import com.alipay.remoting.rpc.protocol.RpcRequestCommand;
 import com.alipay.remoting.util.RemotingUtil;
-import org.slf4j.LoggerFactory;
 
 /**
  * Rpc remoting capability.
@@ -48,7 +48,7 @@ public abstract class RpcRemoting extends BaseRemoting {
         RpcProtocolManager.initProtocols();
     }
     /** logger */
-    private static final Logger     logger = LoggerFactory.getLogger("RpcRemoting");
+    private static final Logger     logger = BoltLoggerFactory.getLogger("RpcRemoting");
 
     /** address parser to get custom args */
     protected RemotingAddressParser addressParser;

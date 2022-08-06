@@ -33,6 +33,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.alipay.remoting.constant.Constants;
+import com.alipay.remoting.log.BoltLoggerFactory;
 import org.slf4j.Logger;
 
 import com.alipay.remoting.config.ConfigManager;
@@ -41,7 +42,6 @@ import com.alipay.remoting.exception.RemotingException;
 import com.alipay.remoting.util.FutureTaskUtil;
 import com.alipay.remoting.util.RunStateRecordedFutureTask;
 import com.alipay.remoting.util.StringUtils;
-import org.slf4j.LoggerFactory;
 
 /**
  * Abstract implementation of connection manager
@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 public class DefaultConnectionManager extends AbstractLifeCycle implements ConnectionManager,
                                                                Scannable, LifeCycle {
 
-    private static final Logger                                                 logger = LoggerFactory
+    private static final Logger                                                 logger = BoltLoggerFactory
                                                                                            .getLogger("CommonDefault");
 
     /**

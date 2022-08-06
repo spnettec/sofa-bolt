@@ -18,13 +18,13 @@ package com.alipay.remoting;
 
 import org.slf4j.Logger;
 
+import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.RemotingUtil;
 
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.timeout.IdleStateEvent;
-import org.slf4j.LoggerFactory;
 
 /**
  * Server Idle handler.
@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 @Sharable
 public class ServerIdleHandler extends ChannelDuplexHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger("CommonDefault");
+    private static final Logger logger = BoltLoggerFactory.getLogger("CommonDefault");
 
     /**
      * @see io.netty.channel.ChannelInboundHandlerAdapter#userEventTriggered(io.netty.channel.ChannelHandlerContext, java.lang.Object)
