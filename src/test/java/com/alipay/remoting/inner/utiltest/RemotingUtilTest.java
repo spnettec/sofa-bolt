@@ -75,7 +75,7 @@ public class RemotingUtilTest {
             logger.error("Start server failed!", e);
         }
         client = new RpcClient();
-        client.init();
+        client.startup();
     }
 
     @After
@@ -103,7 +103,7 @@ public class RemotingUtilTest {
             Assert.assertEquals(connAddress.getUniqueKey(), res);
         } catch (Exception e) {
             e.printStackTrace();
-            Assert.assertFalse(true);
+            Assert.fail();
         }
 
     }
@@ -122,7 +122,7 @@ public class RemotingUtilTest {
             Assert.assertNotNull(res);
         } catch (Exception e) {
             e.printStackTrace();
-            Assert.assertFalse(true);
+            Assert.fail();
         }
 
     }
@@ -140,7 +140,7 @@ public class RemotingUtilTest {
             String res = RemotingUtil.parseRemoteIP(channel);
             Assert.assertEquals(localIP, res);
         } catch (Exception e) {
-            Assert.assertFalse(true);
+            Assert.fail();
         }
     }
 
@@ -169,7 +169,7 @@ public class RemotingUtilTest {
 
     /**
      * parse InetSocketAddress to get address (format [ip:port])
-     * 
+     * <p>
      * e.g.1 /127.0.0.1:1234 -> 127.0.0.1:1234
      * e.g.2 sofatest-2.stack.alipay.net/10.209.155.54:12200 -> 10.209.155.54:12200
      */
@@ -208,15 +208,15 @@ public class RemotingUtilTest {
         Assert.assertEquals(localIP, res);
     }
 
-    class Server {
+    static class Server {
         Logger    logger = LoggerFactory.getLogger(Server.class);
         RpcServer server;
 
         public void startServer() {
             server = new RpcServer(port);
             server.registerUserProcessor(new SyncUserProcessor<RequestBody>() {
-                ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 3, 60, TimeUnit.SECONDS,
-                                                new ArrayBlockingQueue<Runnable>(4),
+                final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 3, 60, TimeUnit.SECONDS,
+                        new ArrayBlockingQueue<>(4),
                                                 new NamedThreadFactory("Request-process-pool"));
 
                 @Override
@@ -236,11 +236,11 @@ public class RemotingUtilTest {
                 }
 
             });
-            server.start();
+            server.startup();
         }
 
         public void stopServer() {
-            server.stop();
+            server.shutdown();
         }
     }
 

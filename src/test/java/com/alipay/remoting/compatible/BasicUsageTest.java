@@ -94,6 +94,7 @@ public class BasicUsageTest {
     @After
     public void stop() {
         try {
+            ProtocolManager.registerProtocol(new RpcProtocolV2(), RpcProtocolV2.PROTOCOL_CODE);
             server.stop();
             Thread.sleep(100);
         } catch (InterruptedException e) {

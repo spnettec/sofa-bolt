@@ -84,7 +84,7 @@ public class BasicUsage_ProtocolV2_1_Test {
         client.addConnectionEventProcessor(ConnectionEventType.CONNECT, clientConnectProcessor);
         client.addConnectionEventProcessor(ConnectionEventType.CLOSE, clientDisConnectProcessor);
         client.registerUserProcessor(clientUserProcessor);
-        client.init();
+        client.startup();
     }
 
     @After
@@ -128,7 +128,7 @@ public class BasicUsage_ProtocolV2_1_Test {
         RequestBody req = new RequestBody(1, "hello world sync");
         for (int i = 0; i < invokeTimes; i++) {
             try {
-                String res = null;
+                String res;
                 if (i % 2 == 0) {
                     res = (String) client.invokeSync(addr, req, 3000);
                 } else {
