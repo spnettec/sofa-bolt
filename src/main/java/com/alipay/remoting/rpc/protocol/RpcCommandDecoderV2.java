@@ -19,7 +19,6 @@ package com.alipay.remoting.rpc.protocol;
 import java.net.InetSocketAddress;
 import java.util.List;
 
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.ThreadLocalArriveTimeHolder;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
@@ -37,6 +36,7 @@ import com.alipay.remoting.util.CrcUtil;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import org.slf4j.LoggerFactory;
 
 /**
  * Command decoder for Rpc v2.
@@ -46,7 +46,7 @@ import io.netty.channel.ChannelHandlerContext;
  */
 public class RpcCommandDecoderV2 implements CommandDecoder {
 
-    private static final Logger logger = BoltLoggerFactory.getLogger("RpcRemoting");
+    private static final Logger logger = LoggerFactory.getLogger("RpcRemoting");
 
     private int                 lessLen;
 

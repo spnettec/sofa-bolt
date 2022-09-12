@@ -25,8 +25,8 @@ import com.alipay.remoting.config.Configuration;
 import org.slf4j.Logger;
 
 import com.alipay.remoting.config.Configs;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.StringUtils;
+import org.slf4j.LoggerFactory;
 
 /**
  * Select a connection randomly
@@ -36,7 +36,7 @@ import com.alipay.remoting.util.StringUtils;
  */
 public class RandomSelectStrategy implements ConnectionSelectStrategy {
 
-    private static final Logger logger    = BoltLoggerFactory.getLogger("CommonDefault");
+    private static final Logger logger    = LoggerFactory.getLogger("CommonDefault");
 
     private static final int    MAX_TIMES = 5;
     private final Random        random    = new Random();

@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 
-import com.alipay.remoting.log.BoltLoggerFactory;
+import org.slf4j.LoggerFactory;
 
 /**
  * default implementation for config container
@@ -32,7 +32,7 @@ import com.alipay.remoting.log.BoltLoggerFactory;
 @Deprecated
 public class DefaultConfigContainer implements ConfigContainer {
     /** logger */
-    private static final Logger                      logger      = BoltLoggerFactory
+    private static final Logger                      logger      = LoggerFactory
                                                                      .getLogger("CommonDefault");
 
     /**

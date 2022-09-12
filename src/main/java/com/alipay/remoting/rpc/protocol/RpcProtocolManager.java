@@ -31,4 +31,8 @@ public class RpcProtocolManager {
         ProtocolManager.registerProtocol(new RpcProtocol(), RpcProtocol.PROTOCOL_CODE);
         ProtocolManager.registerProtocol(new RpcProtocolV2(), RpcProtocolV2.PROTOCOL_CODE);
     }
+    public static void cleanProtocols() {
+        ProtocolManager.unRegisterProtocol(RpcProtocol.PROTOCOL_CODE);
+        ProtocolManager.unRegisterProtocol(RpcProtocolV2.PROTOCOL_CODE);
+    }
 }

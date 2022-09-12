@@ -20,11 +20,11 @@ import java.lang.ref.SoftReference;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.alipay.remoting.log.BoltLoggerFactory;
 import org.slf4j.Logger;
 
 import com.alipay.remoting.config.Configs;
 import com.alipay.remoting.rpc.protocol.RpcProtocolV2;
+import org.slf4j.LoggerFactory;
 
 /**
  * URL definition.
@@ -266,7 +266,7 @@ public class Url {
     public static volatile boolean                              isCollected = false;
 
     /** logger */
-    private static final Logger                                 logger      = BoltLoggerFactory
+    private static final Logger                                 logger      = LoggerFactory
                                                                                 .getLogger("RpcRemoting");
 
     @Override

@@ -76,10 +76,11 @@ public class BasicUsageTest {
 
     @Before
     public void init() {
-        ProtocolManager.unRegisterProtocol(RpcProtocolV2.PROTOCOL_CODE);
 
         server = new BoltServer(port, true);
         server.start();
+        ProtocolManager.unRegisterProtocol(RpcProtocolV2.PROTOCOL_CODE);
+
         server.addConnectionEventProcessor(ConnectionEventType.CONNECT, serverConnectProcessor);
         server.addConnectionEventProcessor(ConnectionEventType.CLOSE, serverDisConnectProcessor);
         server.registerUserProcessor(serverUserProcessor);
