@@ -64,6 +64,8 @@
     </scm>
 
     <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <cobertura.maven.plugin>2.6</cobertura.maven.plugin>
         <commons.logging.version>1.2</commons.logging.version>
         <coveralls.maven.plugin>4.3.0</coveralls.maven.plugin>
@@ -80,7 +82,7 @@
         <maven.java.formatter.plugin>0.4</maven.java.formatter.plugin>
         <maven.source.plugin>3.2.1</maven.source.plugin>
         <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
-        <netty.version>4.1.80.Final</netty.version>
+        <netty.version>4.1.81.Final</netty.version>
 
         <project.encoding>UTF-8</project.encoding>
         <slf4j.version>2.0.0</slf4j.version>
@@ -96,7 +98,17 @@
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
+            <artifactId>netty-transport</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-handler</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-epoll</artifactId>
             <version>${netty.version}</version>
         </dependency>
 
