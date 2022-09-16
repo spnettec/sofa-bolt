@@ -82,7 +82,7 @@
         <maven.java.formatter.plugin>0.4</maven.java.formatter.plugin>
         <maven.source.plugin>3.2.1</maven.source.plugin>
         <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
-        <netty.version>4.1.81.Final</netty.version>
+        <netty.version>4.1.82.Final</netty.version>
 
         <project.encoding>UTF-8</project.encoding>
         <slf4j.version>1.7.36</slf4j.version>
