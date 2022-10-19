@@ -67,7 +67,7 @@ public class RejectionProcessableInvokeCallbackTest {
         client.startup();
 
         executor = new ThreadPoolExecutor(1, 1, 60, TimeUnit.SECONDS,
-            new ArrayBlockingQueue<Runnable>(2), new NamedThreadFactory(
+                new ArrayBlockingQueue<>(2), new NamedThreadFactory(
                 "test-rejection-processable"));
     }
 
@@ -108,11 +108,11 @@ public class RejectionProcessableInvokeCallbackTest {
         };
         try {
             for (int i = 0; i < invokeCount; i++) {
-                client.invokeWithCallback(addr, req, callback, 50 * invokeCount);
+                client.invokeWithCallback(addr, req, callback, 50);
             }
 
             try {
-                latch.await(100L * invokeCount, TimeUnit.MILLISECONDS);
+                latch.await(100L, TimeUnit.MILLISECONDS);
             } catch (InterruptedException ignore) {
             }
 
@@ -154,11 +154,11 @@ public class RejectionProcessableInvokeCallbackTest {
         };
         try {
             for (int i = 0; i < invokeCount; i++) {
-                client.invokeWithCallback(addr, req, callback, 50 * invokeCount);
+                client.invokeWithCallback(addr, req, callback, 50);
             }
 
             try {
-                latch.await(100L * invokeCount, TimeUnit.MILLISECONDS);
+                latch.await(100L, TimeUnit.MILLISECONDS);
             } catch (InterruptedException ignore) {
             }
 
@@ -174,7 +174,7 @@ public class RejectionProcessableInvokeCallbackTest {
     public void testCallerHandleExceptionPolicy() {
         RequestBody req = new RequestBody(1, "hello world sync");
 
-        int invokeCount = 50;
+        int invokeCount = 100;
         final CountDownLatch latch = new CountDownLatch(invokeCount);
         final AtomicInteger errCount = new AtomicInteger(0);
         callback = new RejectionProcessableInvokeCallback() {
@@ -201,11 +201,11 @@ public class RejectionProcessableInvokeCallbackTest {
         };
         try {
             for (int i = 0; i < invokeCount; i++) {
-                client.invokeWithCallback(addr, req, callback, 50 * invokeCount);
+                client.invokeWithCallback(addr, req, callback, 50 );
             }
 
             try {
-                latch.await(100L * invokeCount, TimeUnit.MILLISECONDS);
+                latch.await(100L, TimeUnit.MILLISECONDS);
             } catch (InterruptedException ignore) {
             }
 

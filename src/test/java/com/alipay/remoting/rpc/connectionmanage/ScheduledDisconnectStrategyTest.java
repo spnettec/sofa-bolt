@@ -163,7 +163,7 @@ public class ScheduledDisconnectStrategyTest {
     public void testCloseFreshSelectConnections_byUserSetting() throws RemotingException,
                                                                InterruptedException {
         System.setProperty(Configs.RETRY_DETECT_PERIOD, "500");
-        System.setProperty(Configs.CONN_MONITOR_INITIAL_DELAY, "2000");
+        System.setProperty(Configs.CONN_MONITOR_INITIAL_DELAY, "900");
         System.setProperty(Configs.CONN_MONITOR_PERIOD, "100");
         System.setProperty(Configs.CONN_THRESHOLD, "0");
         doInit(false, true);
@@ -174,7 +174,7 @@ public class ScheduledDisconnectStrategyTest {
         final Connection connection = client.getConnection(url, 1000);
         connection.addInvokeFuture(new DefaultInvokeFuture(1, null, null, RpcCommandType.REQUEST,
             null));
-        Thread.sleep(2100);
+        Thread.sleep(1000);
         Assert.assertEquals(0, clientDisConnectProcessor.getDisConnectTimes());
         Assert.assertEquals(1, clientConnectProcessor.getConnectTimes());
         connection.removeInvokeFuture(1);
