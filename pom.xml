@@ -81,10 +81,10 @@
         <maven.jar.plugin>3.3.0</maven.jar.plugin>
         <maven.source.plugin>3.2.1</maven.source.plugin>
         <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
-        <netty.version>4.1.86.Final</netty.version>
+        <netty.version>4.1.87.Final</netty.version>
 
         <project.encoding>UTF-8</project.encoding>
-        <slf4j.version>2.0.4</slf4j.version>
+        <slf4j.version>2.0.6</slf4j.version>
         <sortpom.maven.plugin>3.2.0</sortpom.maven.plugin>
     </properties>
 
@@ -241,35 +241,26 @@
                 <groupId>com.github.ekryd.sortpom</groupId>
                 <artifactId>sortpom-maven-plugin</artifactId>
                 <version>${sortpom.maven.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>sort-pom</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>sort</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <nrOfIndentSpace>4</nrOfIndentSpace>
                     <keepBlankLines>true</keepBlankLines>
                     <sortProperties>true</sortProperties>
                     <encoding>${project.encoding}</encoding>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>sort-pom</id>
+                        <goals>
+                            <goal>sort</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <version>${license.maven.plugin}</version>
-                <executions>
-                    <execution>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <!-- among available goals remove, format, check, help  -->
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <header>${user.dir}/HEADER</header>
                     <excludes>
@@ -291,6 +282,15 @@
                         <java>SLASHSTAR_STYLE</java>
                     </mapping>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- among available goals remove, format, check, help  -->
+                            <goal>format</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -335,14 +335,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.4</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <excludePackageNames>com.alipay.hessian.clhm:com.caucho</excludePackageNames>
                     <encoding>${project.encoding}</encoding>
@@ -352,6 +344,14 @@
                     <author>false</author>
                     <keywords>true</keywords>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -359,6 +359,16 @@
     <profiles>
         <profile>
             <id>release</id>
+            <distributionManagement>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
             <build>
                 <plugins>
                     <plugin>
@@ -379,25 +389,15 @@
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
-            <distributionManagement>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
         </profile>
         <profile>
             <id>disable-javadoc-doclint</id>
@@ -419,20 +419,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>3.19.0</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>com.alibaba.p3c</groupId>
-                                <artifactId>p3c-pmd</artifactId>
-                                <version>2.1.1</version>
-                            </dependency>
-                        </dependencies>
                         <configuration>
                             <failOnViolation>true</failOnViolation>
                             <!-- only fail on block issues -->
@@ -458,6 +444,20 @@
                             </rulesets>
                             <printFailingErrors>true</printFailingErrors>
                         </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.alibaba.p3c</groupId>
+                                <artifactId>p3c-pmd</artifactId>
+                                <version>2.1.1</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
