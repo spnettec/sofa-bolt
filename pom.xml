@@ -72,8 +72,8 @@
         <java.version>11</java.version>
         <junit.version>4.13.2</junit.version>
         <license.maven.plugin>4.1</license.maven.plugin>
-        <log4j2.version>2.21.0</log4j2.version>
-        <logback.version>1.4.11</logback.version>
+        <log4j2.version>2.22.0</log4j2.version>
+        <logback.version>1.4.14</logback.version>
         <maven.assembly.plugin>3.4.2</maven.assembly.plugin>
         <maven.compiler.plugin>3.5.1</maven.compiler.plugin>
         <maven.compiler.source>11</maven.compiler.source>
@@ -81,7 +81,7 @@
         <maven.jar.plugin>3.3.0</maven.jar.plugin>
         <maven.source.plugin>3.2.1</maven.source.plugin>
         <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
-        <netty.version>4.1.100.Final</netty.version>
+        <netty.version>4.1.101.Final</netty.version>
 
         <project.encoding>UTF-8</project.encoding>
         <slf4j.version>2.0.9</slf4j.version>
@@ -386,6 +386,7 @@
                             <autoReleaseAfterClose>false</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
+                    <!--
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -400,6 +401,7 @@
                             </execution>
                         </executions>
                     </plugin>
+                    -->
                 </plugins>
             </build>
         </profile>
