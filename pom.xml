@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.heyoulin</groupId>
     <artifactId>sofa-bolt</artifactId>
-    <version>1.6.16.B</version>
+    <version>1.6.17.B</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
