@@ -65,15 +65,15 @@
 
     <properties>
         <cobertura.maven.plugin>2.7</cobertura.maven.plugin>
-        <commons.logging.version>1.2</commons.logging.version>
+        <commons.logging.version>1.3.0</commons.logging.version>
         <coveralls.maven.plugin>4.3.0</coveralls.maven.plugin>
         <disruptor.verion>4.0.0</disruptor.verion>
         <hessian.version>4.0.66</hessian.version>
         <java.version>11</java.version>
         <junit.version>4.13.2</junit.version>
         <license.maven.plugin>4.1</license.maven.plugin>
-        <log4j2.version>2.22.1</log4j2.version>
-        <logback.version>1.4.14</logback.version>
+        <log4j2.version>2.23.0</log4j2.version>
+        <logback.version>1.5.3</logback.version>
         <maven.assembly.plugin>3.4.2</maven.assembly.plugin>
         <maven.compiler.plugin>3.5.1</maven.compiler.plugin>
         <maven.compiler.source>11</maven.compiler.source>
@@ -81,11 +81,11 @@
         <maven.jar.plugin>3.3.0</maven.jar.plugin>
         <maven.source.plugin>3.2.1</maven.source.plugin>
         <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
-        <netty.version>4.1.106.Final</netty.version>
+        <netty.version>4.1.107.Final</netty.version>
 
         <project.encoding>UTF-8</project.encoding>
-        <slf4j.version>2.0.11</slf4j.version>
-        <sortpom.maven.plugin>3.3.0</sortpom.maven.plugin>
+        <slf4j.version>2.0.12</slf4j.version>
+        <sortpom.maven.plugin>3.4.0</sortpom.maven.plugin>
     </properties>
 
     <dependencies>
@@ -304,7 +304,7 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <forkCount>1</forkCount>
+                    <forkCount>0</forkCount>
                     <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
