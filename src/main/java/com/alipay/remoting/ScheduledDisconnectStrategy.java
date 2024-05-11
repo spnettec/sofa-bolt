@@ -94,7 +94,7 @@ public class ScheduledDisconnectStrategy implements ConnectionMonitorStrategy {
 
                 List<Connection> serviceOnConnections = new ArrayList<>();
                 List<Connection> serviceOffConnections = new ArrayList<>();
-                if(pool!=null) {
+                if (pool != null) {
                     for (Connection connection : pool.getAll()) {
                         if (isConnectionOn(connection)) {
                             serviceOnConnections.add(connection);

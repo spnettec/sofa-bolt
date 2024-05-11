@@ -76,11 +76,10 @@ public class BasicUsageTest {
 
     @Before
     public void init() {
+        ProtocolManager.unRegisterProtocol(RpcProtocolV2.PROTOCOL_CODE);
 
         server = new BoltServer(port, true);
         server.start();
-        ProtocolManager.unRegisterProtocol(RpcProtocolV2.PROTOCOL_CODE);
-
         server.addConnectionEventProcessor(ConnectionEventType.CONNECT, serverConnectProcessor);
         server.addConnectionEventProcessor(ConnectionEventType.CLOSE, serverDisConnectProcessor);
         server.registerUserProcessor(serverUserProcessor);
@@ -95,7 +94,6 @@ public class BasicUsageTest {
     @After
     public void stop() {
         try {
-            ProtocolManager.registerProtocol(new RpcProtocolV2(), RpcProtocolV2.PROTOCOL_CODE);
             server.stop();
             Thread.sleep(100);
         } catch (InterruptedException e) {

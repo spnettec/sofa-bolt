@@ -366,7 +366,7 @@ public class RpcRequestProcessor extends AbstractRemotingProcessor<RpcRequestCom
     private void debugLog(RemotingContext ctx, RpcRequestCommand cmd, long currentTimestamp) {
         if (logger.isDebugEnabled()) {
             logger.debug("Rpc request received! requestId={}, from {}", cmd.getId(),
-                RemotingUtil.parseRemoteAddress(ctx.getChannelContext().channel()));
+                RemotingUtil.parseRemoteAddress(ctx.getChannelContext() == null? null : ctx.getChannelContext().channel()));
             logger.debug(
                 "request id {} currenTimestamp {} - arriveTime {} = server cost {} < timeout {}.",
                 cmd.getId(), currentTimestamp, cmd.getArriveTime(),
