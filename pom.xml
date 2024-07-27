@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.heyoulin</groupId>
     <artifactId>sofa-bolt</artifactId>
-    <version>1.6.18.B</version>
+    <version>1.6.10.B</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -65,7 +65,7 @@
 
     <properties>
         <cobertura.maven.plugin>2.7</cobertura.maven.plugin>
-        <commons.logging.version>1.3.0</commons.logging.version>
+        <commons.logging.version>1.3.3</commons.logging.version>
         <coveralls.maven.plugin>4.3.0</coveralls.maven.plugin>
         <disruptor.verion>4.0.0</disruptor.verion>
         <hessian.version>4.0.66</hessian.version>
@@ -81,7 +81,7 @@
         <maven.jar.plugin>3.3.0</maven.jar.plugin>
         <maven.source.plugin>3.2.1</maven.source.plugin>
         <maven.surefire.plugin>3.3.0</maven.surefire.plugin>
-        <netty.version>4.1.111.Final</netty.version>
+        <netty.version>4.1.112.Final</netty.version>
 
         <project.encoding>UTF-8</project.encoding>
         <slf4j.version>2.0.13</slf4j.version>
