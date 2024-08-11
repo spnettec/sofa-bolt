@@ -75,7 +75,7 @@
         <log4j2.version>2.23.1</log4j2.version>
         <logback.version>1.5.6</logback.version>
         <maven.assembly.plugin>3.4.2</maven.assembly.plugin>
-        <maven.compiler.plugin>3.13.0</maven.compiler.plugin>
+        <maven.compiler.plugin>3.5.1</maven.compiler.plugin>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.jar.plugin>3.4.2</maven.jar.plugin>
