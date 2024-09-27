@@ -271,15 +271,6 @@
                         <java>SLASHSTAR_STYLE</java>
                     </mapping>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- among available goals remove, format, check, help  -->
-                            <goal>format</goal>
-                        </goals>
-                        <phase>process-sources</phase>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
