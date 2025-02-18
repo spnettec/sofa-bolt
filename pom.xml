@@ -246,7 +246,6 @@
                     <encoding>${project.encoding}</encoding>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>com.github.ekryd.sortpom</groupId>
                 <artifactId>sortpom-maven-plugin</artifactId>
