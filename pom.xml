@@ -82,7 +82,7 @@
         <maven.source.plugin>3.0.0</maven.source.plugin>
         <maven.surefire.argLine></maven.surefire.argLine>
         <maven.surefire.excludes></maven.surefire.excludes>
-        <maven.surefire.plugin>3.2.5</maven.surefire.plugin>
+        <maven.surefire.plugin>3.5.3</maven.surefire.plugin>
         <netty-io-uring.version>0.0.26.Final</netty-io-uring.version>
         <netty.version>4.1.119.Final</netty.version>
 
