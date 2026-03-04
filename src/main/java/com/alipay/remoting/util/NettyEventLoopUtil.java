@@ -22,6 +22,7 @@ import com.alipay.remoting.config.ConfigManager;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.EventLoopGroup;
+import io.netty.channel.MultiThreadIoEventLoopGroup;
 import io.netty.channel.epoll.Epoll;
 import io.netty.channel.epoll.EpollChannelOption;
 import io.netty.channel.epoll.EpollEventLoopGroup;
@@ -33,9 +34,10 @@ import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.incubator.channel.uring.IOUringEventLoopGroup;
-import io.netty.incubator.channel.uring.IOUringServerSocketChannel;
-import io.netty.incubator.channel.uring.IOUringSocketChannel;
+import io.netty.channel.uring.IoUring;
+import io.netty.channel.uring.IoUringIoHandler;
+import io.netty.channel.uring.IoUringServerSocketChannel;
+import io.netty.channel.uring.IoUringSocketChannel;
 
 /**
  * Utils for netty EventLoop
@@ -49,7 +51,8 @@ public class NettyEventLoopUtil {
     private static final boolean epollEnabled   = ConfigManager.netty_epoll()
                                                   && Epoll.isAvailable();
 
-    private static final boolean ioUringEnabled = ConfigManager.netty_io_uring();
+    private static final boolean ioUringEnabled = ConfigManager.netty_io_uring()
+                                                  && IoUring.isAvailable();
 
     /**
      * Create the right event loop according to current platform and system property, fallback to NIO when epoll not enabled.
@@ -59,7 +62,7 @@ public class NettyEventLoopUtil {
      * @return an EventLoopGroup suitable for the current platform
      */
     public static EventLoopGroup newEventLoopGroup(int nThreads, ThreadFactory threadFactory) {
-        return ioUringEnabled ? new IOUringEventLoopGroup(nThreads, threadFactory)
+        return ioUringEnabled ? new MultiThreadIoEventLoopGroup(nThreads, IoUringIoHandler.newFactory())
             : epollEnabled ? new EpollEventLoopGroup(nThreads, threadFactory)
                 : new NioEventLoopGroup(nThreads, threadFactory);
     }
@@ -68,7 +71,7 @@ public class NettyEventLoopUtil {
      * @return a SocketChannel class suitable for the given EventLoopGroup implementation
      */
     public static Class<? extends SocketChannel> getClientSocketChannelClass() {
-        return ioUringEnabled ? IOUringSocketChannel.class
+        return ioUringEnabled ? IoUringSocketChannel.class
             : epollEnabled ? EpollSocketChannel.class : NioSocketChannel.class;
     }
 
@@ -76,7 +79,7 @@ public class NettyEventLoopUtil {
      * @return a ServerSocketChannel class suitable for the given EventLoopGroup implementation
      */
     public static Class<? extends ServerSocketChannel> getServerSocketChannelClass() {
-        return ioUringEnabled ? IOUringServerSocketChannel.class
+        return ioUringEnabled ? IoUringServerSocketChannel.class
             : epollEnabled ? EpollServerSocketChannel.class : NioServerSocketChannel.class;
     }
 
