@@ -23,6 +23,7 @@ import com.alipay.remoting.LifeCycleException;
 import com.alipay.remoting.RemotingContext;
 import com.alipay.remoting.rpc.RpcCommandFactory;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.junit.Assert;
@@ -59,7 +60,10 @@ public class RpcCommandHandlerTest {
 
         // Mock minimum required behavior if needed
         Channel channel = Mockito.mock(Channel.class);
+        ChannelFuture channelFuture = Mockito.mock(ChannelFuture.class);
         Mockito.when(ctx.channel()).thenReturn(channel);
+        Mockito.when(ctx.writeAndFlush(Mockito.any())).thenReturn(channelFuture);
+        Mockito.when(channelFuture.addListener(Mockito.any())).thenReturn(channelFuture);
 
         ConcurrentHashMap<String, UserProcessor<?>> userProcessors = new ConcurrentHashMap<>();
         userProcessors.put("testClass", new MockUserProcessors());

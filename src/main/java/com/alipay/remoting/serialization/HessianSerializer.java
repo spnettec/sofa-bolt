@@ -33,6 +33,14 @@ import com.caucho.hessian.io.SerializerFactory;
  */
 public class HessianSerializer implements Serializer {
 
+    private static final String                         HESSIAN_UNSAFE_PROPERTY = "com.caucho.hessian.unsafe";
+
+    static {
+        if (System.getProperty(HESSIAN_UNSAFE_PROPERTY) == null) {
+            System.setProperty(HESSIAN_UNSAFE_PROPERTY, "false");
+        }
+    }
+
     private SerializerFactory                         serializerFactory    = new SerializerFactory();
     private static ThreadLocal<ByteArrayOutputStream> localOutputByteArray = new ThreadLocal<ByteArrayOutputStream>() {
                                                                                @Override

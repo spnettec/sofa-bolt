@@ -23,6 +23,7 @@ import java.security.KeyStore;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.TrustManagerFactory;
 
@@ -66,6 +67,7 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.flush.FlushConsolidationHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.AttributeKey;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -77,6 +79,8 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
 
     private static final Logger         logger      = LoggerFactory
                                                         .getLogger(AbstractConnectionFactory.class);
+    private static final AttributeKey<InetSocketAddress> REMOTE_ADDRESS = AttributeKey
+                                                        .valueOf("bolt.remoteAddress");
 
     private static final EventLoopGroup workerGroup = NettyEventLoopUtil.newEventLoopGroup(Runtime
                                                         .getRuntime().availableProcessors() + 1,
@@ -148,8 +152,13 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
                     sslEnable = RpcConfigManager.client_ssl_enable();
                 }
                 if (sslEnable) {
-                    SSLEngine engine = initSSLContext().newEngine(channel.alloc());
+                    InetSocketAddress remoteAddress = channel.attr(REMOTE_ADDRESS).get();
+                    SSLEngine engine = initSSLContext().newEngine(channel.alloc(),
+                        remoteAddress.getHostString(), remoteAddress.getPort());
                     engine.setUseClientMode(true);
+                    SSLParameters sslParameters = engine.getSSLParameters();
+                    sslParameters.setEndpointIdentificationAlgorithm(null);
+                    engine.setSSLParameters(sslParameters);
                     pipeline.addLast(Constants.SSL_HANDLER, new SslHandler(engine));
                 }
                 if (flushConsolidationSwitch) {
@@ -297,7 +306,8 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(sslAlgorithm);
             tmf.init(ks);
 
-            return SslContextBuilder.forClient().keyManager(kmf).trustManager(tmf).build();
+            return SslContextBuilder.forClient().keyManager(kmf).trustManager(tmf)
+                .endpointIdentificationAlgorithm(null).build();
         } catch (Exception e) {
             logger.error("Fail to init SSL context for connection factory.", e);
             throw new IllegalStateException("Fail to init SSL context", e);
@@ -319,7 +329,9 @@ public abstract class AbstractConnectionFactory implements ConnectionFactory {
                 connectTimeout));
         }
         bootstrap.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectTimeout);
-        ChannelFuture future = bootstrap.connect(new InetSocketAddress(targetIP, targetPort));
+        InetSocketAddress remoteAddress = new InetSocketAddress(targetIP, targetPort);
+        bootstrap.attr(REMOTE_ADDRESS, remoteAddress);
+        ChannelFuture future = bootstrap.connect(remoteAddress);
 
         future.awaitUninterruptibly();
         if (!future.isDone()) {

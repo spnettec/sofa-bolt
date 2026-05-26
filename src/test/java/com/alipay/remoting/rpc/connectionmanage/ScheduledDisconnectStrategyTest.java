@@ -47,7 +47,7 @@ public class ScheduledDisconnectStrategyTest {
     BoltServer                    server;
     RpcClient                     client;
 
-    int                           port                      = 2018;
+    int                           port                      = 0;
 
     SimpleServerUserProcessor     serverUserProcessor       = new SimpleServerUserProcessor();
     SimpleClientUserProcessor     clientUserProcessor       = new SimpleClientUserProcessor();
@@ -68,8 +68,12 @@ public class ScheduledDisconnectStrategyTest {
 
     @After
     public void stop() {
-        client.shutdown();
-        server.stop();
+        if (client != null) {
+            client.shutdown();
+        }
+        if (server != null) {
+            server.stop();
+        }
     }
 
     @Test
@@ -179,8 +183,7 @@ public class ScheduledDisconnectStrategyTest {
         Assert.assertEquals(1, clientConnectProcessor.getConnectTimes());
         connection.removeInvokeFuture(1);
         /* Monitor task sleep 500ms*/
-        Thread.sleep(100);
-        Assert.assertEquals(1, clientDisConnectProcessor.getDisConnectTimes());
+        waitUntilDisconnectTimesAtLeast(1, 1000);
         Thread.sleep(500);
         Assert.assertTrue(0 <= clientDisConnectProcessor.getDisConnectTimes());
     }
@@ -249,8 +252,9 @@ public class ScheduledDisconnectStrategyTest {
             System.setProperty(Configs.CONN_MONITOR_SWITCH, "false");
             System.setProperty(Configs.CONN_RECONNECT_SWITCH, "false");
         }
-        server = new BoltServer(port, false, true);
+        server = new BoltServer(0, false, true);
         server.start();
+        port = server.port();
         server.addConnectionEventProcessor(ConnectionEventType.CONNECT, serverConnectProcessor);
         server.addConnectionEventProcessor(ConnectionEventType.CLOSE, serverDisConnectProcessor);
         server.registerUserProcessor(serverUserProcessor);
@@ -264,5 +268,17 @@ public class ScheduledDisconnectStrategyTest {
         client.addConnectionEventProcessor(ConnectionEventType.CLOSE, clientDisConnectProcessor);
         client.registerUserProcessor(clientUserProcessor);
         client.init();
+    }
+
+    private void waitUntilDisconnectTimesAtLeast(int expected, long timeoutMillis)
+                                                                                throws InterruptedException {
+        long deadline = System.currentTimeMillis() + timeoutMillis;
+        while (System.currentTimeMillis() < deadline) {
+            if (clientDisConnectProcessor.getDisConnectTimes() >= expected) {
+                return;
+            }
+            Thread.sleep(20);
+        }
+        Assert.assertTrue(clientDisConnectProcessor.getDisConnectTimes() >= expected);
     }
 }

@@ -63,6 +63,10 @@ public class BoltServer {
         return this.server;
     }
 
+    public int port() {
+        return this.server.port();
+    }
+
     public void registerUserProcessor(UserProcessor<?> processor) {
         this.server.registerUserProcessor(processor);
     }

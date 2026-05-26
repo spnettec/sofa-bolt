@@ -40,7 +40,7 @@ public class ConnectionCreatingTest {
     @Test
     public void testCreateConnection() throws RemotingException, InterruptedException {
         // 启动一个MOCK的Server
-        BoltServer boltServer = new BoltServer(8888);
+        BoltServer boltServer = new BoltServer(0, false, true);
         boltServer.registerUserProcessor(new SyncUserProcessor<String>() {
             @Override
             public Object handleRequest(BizContext bizCtx, String request) {
@@ -54,25 +54,29 @@ public class ConnectionCreatingTest {
         });
         // 初始Server建连成功，验证创建连接正常
         boltServer.start();
+        int port = boltServer.port();
         ThreadTestUtils.sleep(1000);
 
         RpcClient rpcClient = new RpcClient();
-        rpcClient.startup();
+        try {
+            rpcClient.startup();
 
-        long start = System.currentTimeMillis();
-        Object response = rpcClient.invokeSync("127.0.0.1:8888", "TEST", 3000);
-        Assert.assertEquals("Hello", response);
-        long cost = System.currentTimeMillis() - start;
-        Assert.assertTrue(cost < 1000);
-        rpcClient.shutdown();
-        // 关闭Server
-        boltServer.stop();
+            long start = System.currentTimeMillis();
+            Object response = rpcClient.invokeSync("127.0.0.1:" + port, "TEST", 3000);
+            Assert.assertEquals("Hello", response);
+            long cost = System.currentTimeMillis() - start;
+            Assert.assertTrue(cost < 1000);
+        } finally {
+            rpcClient.shutdown();
+            // 关闭Server
+            boltServer.stop();
+        }
     }
 
     @Test
     public void testCreateConnectionWithTimeout() {
         // 启动一个MOCK的Server
-        BoltServer boltServer = new BoltServer(8888);
+        BoltServer boltServer = new BoltServer(0, false, true);
         boltServer.registerUserProcessor(new SyncUserProcessor<String>() {
             @Override
             public Object handleRequest(BizContext bizCtx, String request) throws Exception {
@@ -86,29 +90,33 @@ public class ConnectionCreatingTest {
         });
         // 初始Server建连成功，验证创建连接正常
         boltServer.start();
+        int port = boltServer.port();
         ThreadTestUtils.sleep(1000);
 
         RpcClient rpcClient = new RpcClient();
         MockConnectionManager connectionManager = new MockConnectionManager(rpcClient);
         connectionManager.setSleepTime(500);
         connectionManager.startup();
-        rpcClient.setConnectionManager(connectionManager);
-        rpcClient.startup();
-        long start = System.currentTimeMillis();
         try {
-            Object object = rpcClient.invokeSync("127.0.0.1:8888", "TEST", 499);
-            System.out.println(object);
-        } catch (Exception e) {
-            // ignore
-            // create connection timeout
-            e.printStackTrace();
-        }
-        long cost = System.currentTimeMillis() - start;
-        Assert.assertTrue(cost >= 500 && cost < 800);
+            rpcClient.setConnectionManager(connectionManager);
+            rpcClient.startup();
+            long start = System.currentTimeMillis();
+            try {
+                Object object = rpcClient.invokeSync("127.0.0.1:" + port, "TEST", 499);
+                System.out.println(object);
+            } catch (Exception e) {
+                // ignore
+                // create connection timeout
+                e.printStackTrace();
+            }
+            long cost = System.currentTimeMillis() - start;
+            Assert.assertTrue(cost >= 500 && cost < 800);
 
-        rpcClient.shutdown();
-        // 关闭Server
-        boltServer.stop();
+        } finally {
+            rpcClient.shutdown();
+            // 关闭Server
+            boltServer.stop();
+        }
     }
 
     class MockConnectionManager extends DefaultClientConnectionManager {

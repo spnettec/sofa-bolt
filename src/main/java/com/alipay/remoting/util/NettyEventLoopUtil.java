@@ -48,10 +48,10 @@ import io.netty.channel.uring.IoUringSocketChannel;
 public class NettyEventLoopUtil {
 
     /** check whether epoll enabled, and it would not be changed during runtime. */
-    private static final boolean epollEnabled   = ConfigManager.netty_epoll()
+    private static final boolean epollEnabled   = isLinux() && ConfigManager.netty_epoll()
                                                   && Epoll.isAvailable();
 
-    private static final boolean ioUringEnabled = ConfigManager.netty_io_uring()
+    private static final boolean ioUringEnabled = isLinux() && ConfigManager.netty_io_uring()
                                                   && IoUring.isAvailable();
 
     /**
@@ -98,5 +98,10 @@ public class NettyEventLoopUtil {
                     .childOption(EpollChannelOption.EPOLL_MODE, EpollMode.EDGE_TRIGGERED);
             }
         }
+    }
+
+    private static boolean isLinux() {
+        String osName = System.getProperty("os.name", "");
+        return osName.toLowerCase().contains("linux");
     }
 }

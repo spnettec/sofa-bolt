@@ -59,10 +59,10 @@ public class RemotingUtilTest {
     Server                      server;
     RpcClient                   client;
 
-    private static final int    port        = 1111;
     private static final String localIP     = "127.0.0.1";
 
-    private static final Url    connAddress = new Url(localIP, port);
+    private int                 port;
+    private Url                 connAddress;
     RpcAddressParser            parser      = new RpcAddressParser();
 
     @Before
@@ -70,6 +70,8 @@ public class RemotingUtilTest {
         server = new Server();
         try {
             server.startServer();
+            port = server.port();
+            connAddress = new Url(localIP, port);
             Thread.sleep(100);
         } catch (InterruptedException e) {
             logger.error("Start server failed!", e);
@@ -80,8 +82,12 @@ public class RemotingUtilTest {
 
     @After
     public void stop() {
-        server.stopServer();
-        client.closeConnection(connAddress);
+        if (server != null) {
+            server.stopServer();
+        }
+        if (client != null && connAddress != null) {
+            client.closeConnection(connAddress);
+        }
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -213,7 +219,7 @@ public class RemotingUtilTest {
         RpcServer server;
 
         public void startServer() {
-            server = new RpcServer(port);
+            server = new RpcServer(0, true, true);
             server.registerUserProcessor(new SyncUserProcessor<RequestBody>() {
                 final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 3, 60, TimeUnit.SECONDS,
                         new ArrayBlockingQueue<>(4),
@@ -239,8 +245,14 @@ public class RemotingUtilTest {
             server.startup();
         }
 
+        public int port() {
+            return server.port();
+        }
+
         public void stopServer() {
-            server.shutdown();
+            if (server != null && server.isStarted()) {
+                server.shutdown();
+            }
         }
     }
 

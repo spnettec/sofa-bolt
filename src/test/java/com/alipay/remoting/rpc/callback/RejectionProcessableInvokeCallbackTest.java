@@ -18,7 +18,12 @@ package com.alipay.remoting.rpc.callback;
 
 import com.alipay.remoting.*;
 import com.alipay.remoting.rpc.RpcClient;
-import com.alipay.remoting.rpc.common.*;
+import com.alipay.remoting.rpc.common.BoltServer;
+import com.alipay.remoting.rpc.common.CONNECTEventProcessor;
+import com.alipay.remoting.rpc.common.DISCONNECTEventProcessor;
+import com.alipay.remoting.rpc.common.RequestBody;
+import com.alipay.remoting.rpc.common.SimpleClientUserProcessor;
+import com.alipay.remoting.rpc.common.SimpleServerUserProcessor;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -48,14 +53,14 @@ public class RejectionProcessableInvokeCallbackTest {
 
     private ThreadPoolExecutor       executor;
     private InvokeCallback           callback;
+    private CountDownLatch           executorBlocker;
 
     @Before
     public void setUp() {
-        port = PortScan.select();
-        addr = "127.0.0.1:" + port;
-
-        server = new BoltServer(port, true);
+        server = new BoltServer(0, true, true);
         server.start();
+        port = server.port();
+        addr = "127.0.0.1:" + port;
         server.addConnectionEventProcessor(ConnectionEventType.CONNECT, serverConnectProcessor);
         server.addConnectionEventProcessor(ConnectionEventType.CLOSE, serverDisConnectProcessor);
         server.registerUserProcessor(new SimpleServerUserProcessor(0, 1, 3, 60, 500));
@@ -73,6 +78,9 @@ public class RejectionProcessableInvokeCallbackTest {
 
     @After
     public void tearDown() {
+        if (executorBlocker != null) {
+            executorBlocker.countDown();
+        }
         server.stop();
         executor.shutdown();
     }
@@ -84,6 +92,7 @@ public class RejectionProcessableInvokeCallbackTest {
         int invokeCount = 50;
         final CountDownLatch latch = new CountDownLatch(invokeCount);
         final AtomicInteger count = new AtomicInteger(0);
+        saturateCallbackExecutor();
         callback = new RejectionProcessableInvokeCallback() {
             @Override
             public RejectedExecutionPolicy rejectedExecutionPolicy() {
@@ -131,6 +140,7 @@ public class RejectionProcessableInvokeCallbackTest {
 
         int invokeCount = 50;
         final CountDownLatch latch = new CountDownLatch(invokeCount);
+        saturateCallbackExecutor();
         callback = new RejectionProcessableInvokeCallback() {
             @Override
             public RejectedExecutionPolicy rejectedExecutionPolicy() {
@@ -177,6 +187,7 @@ public class RejectionProcessableInvokeCallbackTest {
         int invokeCount = 100;
         final CountDownLatch latch = new CountDownLatch(invokeCount);
         final AtomicInteger errCount = new AtomicInteger(0);
+        saturateCallbackExecutor();
         callback = new RejectionProcessableInvokeCallback() {
             @Override
             public RejectedExecutionPolicy rejectedExecutionPolicy() {
@@ -217,6 +228,21 @@ public class RejectionProcessableInvokeCallbackTest {
             e.printStackTrace();
             Assert.fail();
         }
+    }
+
+    private void saturateCallbackExecutor() {
+        executorBlocker = new CountDownLatch(1);
+        executor.execute(() -> {
+            try {
+                executorBlocker.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+        executor.execute(() -> {
+        });
+        executor.execute(() -> {
+        });
     }
 
 }
