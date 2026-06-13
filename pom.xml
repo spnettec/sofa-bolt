@@ -83,7 +83,7 @@
         <maven.surefire.argLine></maven.surefire.argLine>
         <maven.surefire.excludes></maven.surefire.excludes>
         <maven.surefire.plugin>3.5.3</maven.surefire.plugin>
-        <netty.version>4.2.12.Final</netty.version>
+        <netty.version>4.2.15.Final</netty.version>
 
         <project.encoding>UTF-8</project.encoding>
         <slf4j.version>2.0.17</slf4j.version>
